@@ -1,3 +1,8 @@
-export default function DetailPage({ params }: { params: { id: string } }) {
-  return <div>DetailPage with id: {params.id}</div>;
+export default async function DetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  return <div>DetailPage with id: {id}</div>;
 }
