@@ -1,15 +1,24 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Mail, Lock, Chrome } from 'lucide-react';
 
 const SignInForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push('/maintenance');
+    // router.push('/maintenance');
+    // Set auth cookie (in real app, this would be done by backend)
+    // document.cookie = 'auth-token=demo-token-123; path=/; max-age=86400'; // 24 hours
+
+    // Get callback URL or default to dashboard
+    const callbackUrl = searchParams.get('callbackUrl') || '/maintenance';
+
+    // Redirect to dashboard or callback URL
+    router.push(callbackUrl);
   };
 
   const handleGoogleSignIn = () => {
@@ -21,7 +30,7 @@ const SignInForm = () => {
       <h1 className='text-3xl font-bold text-gray-900 mb-6 text-center'>
         Sign In to MetaKlik
       </h1>
-      <form className='space-y-6' onSubmit={handleSubmit}>
+      <form method='POST' className='space-y-6' onSubmit={handleSubmit}>
         <div>
           <label
             htmlFor='email'

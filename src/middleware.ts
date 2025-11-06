@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { is } from 'zod/v4/locales';
 
 export function middleware(request: NextRequest) {
   // Get the pathname of the request (e.g. /dashboard, /dashboard/links)
@@ -11,6 +12,9 @@ export function middleware(request: NextRequest) {
   // Define protected routes that require authentication
   const isProtectedRoute = path.startsWith('/dashboard');
 
+  if (isProtectedRoute) {
+    return NextResponse.redirect(new URL('/maintenance', request.url));
+  }
   // Check if user is authenticated (you can check cookies, tokens, etc.)
   // For now, we'll check for a simple auth token in cookies
   const token = request.cookies.get('auth-token')?.value;
@@ -29,7 +33,11 @@ export function middleware(request: NextRequest) {
 
   // If authenticated and trying to access signin, redirect to dashboard
   if (token && path === '/signin') {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return NextResponse.redirect(new URL('/maintenance', request.url));
+  }
+  // If authenticated and accessing protected route, allow
+  if (token && isProtectedRoute) {
+    return NextResponse.redirect(new URL('/maintenance', request.url));
   }
 
   return NextResponse.next();
@@ -37,8 +45,5 @@ export function middleware(request: NextRequest) {
 
 // Specify which routes this middleware should run on
 export const config = {
-  matcher: [
-    '/dashboard/:path*',
-    '/signin',
-  ],
+  matcher: ['/dashboard/:path*', '/signin'],
 };
