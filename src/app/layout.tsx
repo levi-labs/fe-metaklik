@@ -86,18 +86,10 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [
-      { url: '/metaklik.ico' },
-      { url: '/icon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/icon-32x32.png', sizes: '32x32', type: 'image/png' },
-    ],
+    icon: '/metaklik.ico',
     shortcut: '/metaklik.ico',
-    apple: [
-      { url: '/apple-icon.png' },
-      { url: '/apple-icon-180x180.png', sizes: '180x180', type: 'image/png' },
-    ],
+    apple: '/metaklik.ico',
   },
-  manifest: '/manifest.json',
   verification: {
     // Add your verification tokens when ready
     // google: 'your-google-verification-code',
