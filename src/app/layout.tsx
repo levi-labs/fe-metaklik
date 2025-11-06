@@ -14,8 +14,8 @@ const siteConfig = {
     'Create and customize your Open Graph tags effortlessly. Generate beautiful link previews for social media with MetaKlik.',
   url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.metaklik.biz.id',
   ogImage: '/assets/metaklik.png',
-  ogImageWidth: 1200,
-  ogImageHeight: 630,
+  ogImageWidth: 1024,
+  ogImageHeight: 1024,
   twitterHandle: '@metaklik',
   keywords: [
     'metaklik',
